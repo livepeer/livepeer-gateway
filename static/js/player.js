@@ -89,7 +89,7 @@ function loadHlsjs(activeVideo) {
       hls = new Hls({debug:false, enableWorker : true});
     }
 
-    var videoURL = "https://d3v4kunrmk4k0a.cloudfront.net/stream/" + activeVideo + '.m3u8';
+    var videoURL = "https://d194z9vj66yekd.cloudfront.net/stream/" + activeVideo + '.m3u8';
     // var videoURL = "http://localhost:8935/stream/" + activeVideo + '.m3u8';
 
     console.log("loading video: " + videoURL);
@@ -109,12 +109,17 @@ function loadHlsjs(activeVideo) {
     })
     hls.on(Hls.Events.MANIFEST_PARSED,function() {
       console.log("playing video");
-      try {
-        networkVideoElement.play();
-      } catch (err) {
-        console.log("Error playing video: " + err)
+      var playPromise = networkVideoElement.play();
+      if (playPromise !== undefined) {
+        playPromise.then(function() {
+          // Automatic playback started!
+        }).catch(function(error) {
+          // Automatic playback failed.
+          // Show a UI element to let the user manually start playback.
+        console.log("Error playing video: " + error)
         $(networkVideoElement).removeClass('loading')
         $(networkVideoElement).addClass('error')
+        });
       }
     });
     hls.on(Hls.Events.ERROR, function(event,data) {
