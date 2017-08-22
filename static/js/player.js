@@ -65,7 +65,7 @@ function loadNetworkVideo(activeVideo) {
 
 function loadNative(activeVideo) {
   console.log("Loading native HLS video")
-  var videoURL = "https://d3v4kunrmk4k0a.cloudfront.net/stream/" + activeVideo + '.m3u8'; 
+  var videoURL = "https://d194z9vj66yekd.cloudfront.net/stream/" + activeVideo + '.m3u8'; 
   $("#network-video").attr("src", videoURL);
 }
 
