@@ -52,24 +52,40 @@ function start() {
 }
 
 function loadNetworkVideo(activeVideo) {
-  if (ios || android) {//Don't use hls.js.
-    // $("#debug").text("native")
-    loadNative(activeVideo)
-  } else {
-    // $("#debug").text("hls.js")
-    loadHlsjs(activeVideo)
-  }
+  //See if there is a local node running
+  $.get("http://localhost:8935/peersCount")
+  .done(function(data) {
+    console.log(data);
+    console.log("Loading from localhost");
+    if (ios || android) {//Don't use hls.js.
+      loadNative(activeVideo, true)
+    } else {
+      loadHlsjs(activeVideo, true)
+    }
+  }).fail(function() {
+    console.log("Loading from cdn");
+    if (ios || android) {//Don't use hls.js.
+      loadNative(activeVideo, false)
+    } else {
+      loadHlsjs(activeVideo, false)
+    }
+  });
+  
 
   return
 }
 
-function loadNative(activeVideo) {
+function loadNative(activeVideo, localnode) {
   console.log("Loading native HLS video")
-  var videoURL = "https://d194z9vj66yekd.cloudfront.net/stream/" + activeVideo + '.m3u8'; 
+
+  var videoURL = "https://d194z9vj66yekd.cloudfront.net/stream/" + activeVideo + '.m3u8';
+  if (localnode == true) {
+    videoURL = "http://localhost:8935/stream/" + activeVideo + '.m3u8';
+  }
   $("#network-video").attr("src", videoURL);
 }
 
-function loadHlsjs(activeVideo) {
+function loadHlsjs(activeVideo, localnode) {
   console.log("Loading HLS video with hls.js")
   if (Hls.isSupported()) {
     if (hls) {
@@ -90,6 +106,9 @@ function loadHlsjs(activeVideo) {
     }
 
     var videoURL = "https://d194z9vj66yekd.cloudfront.net/stream/" + activeVideo + '.m3u8';
+    if (localnode == true) {
+      videoURL = "http://localhost:8935/stream/" + activeVideo + '.m3u8';
+    }
     // var videoURL = "http://localhost:8935/stream/" + activeVideo + '.m3u8';
 
     console.log("loading video: " + videoURL);
@@ -122,6 +141,7 @@ function loadHlsjs(activeVideo) {
         });
       }
     });
+
     hls.on(Hls.Events.ERROR, function(event,data) {
       console.warn(data);
       $(networkVideoElement).removeClass('loading')
@@ -225,6 +245,7 @@ function loadHlsjs(activeVideo) {
       }
       $("#HlsStats").text(JSON.stringify(sortObject(stats),null,"\t"));
     });
+
   } else {
     console.log("HLS.js is not supported.")
   }
