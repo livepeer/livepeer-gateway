@@ -70,7 +70,6 @@ function loadNetworkVideo(activeVideo) {
       loadHlsjs(activeVideo, false)
     }
   });
-  
 
   return
 }
@@ -102,7 +101,7 @@ function loadHlsjs(activeVideo, localnode) {
 
     if (!hls) {
       console.log("creating hls");
-      hls = new Hls({debug:false, enableWorker : true});
+      hls = new Hls({debug:false, enableWorker : true, manifestLoadingTimeOut: 60000});
     }
 
     var videoURL = "https://d194z9vj66yekd.cloudfront.net/stream/" + activeVideo + '.m3u8';
