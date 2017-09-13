@@ -43,7 +43,11 @@
 
     #peers-count {
       float:right;
-      margin-top: -45px
+      margin-top: -45px;
+    }
+
+    #call-to-action {
+      margin-top: 100px;
     }
 
     video.loading {
@@ -70,13 +74,22 @@
         </div>
 
         <button id="start" type="button" class="btn btn-primary">Start</button>
+
+	<div id="call-to-action">
+	  <p>Livepeer is a decentralized live streaming platform built on
+	    Ethereum. <a href="https://medium.com/@petkanics/introducing-livepeer-a-decentralized-live-video-broadcast-platform-and-crypto-token-protocol-7eb4b1de47ed">Learn more here.</a></p>
+	</div>
+	
       </div>
+
     </div>
     <div id="debug"></div>
     <div id="msg-div" class="alert alert-info alert-dismissable fade in" style="display:none">
       <a href="_" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       <div id="HlsStatus"></p>
     </div>
+
+      
   </div>
 
   <script src="static/js/jquery.min.js"></script>
