@@ -562,9 +562,16 @@ input, [contenteditable=true] {
   word-wrap: break-word;
 }
 
-[contenteditable=true]:focus:empty::before {
-    opacity: .1;
+[contenteditable=true]:empty::before {
+    opacity: .6;
+    font-size: inherit;
     content: attr(placeholder);
+}
+
+a {
+    color: #68E790;
+    text-decoration: none;
+    border-bottom: 2px solid #68E790;
 }
 
 /*
@@ -598,10 +605,10 @@ button:hover { -webkit-transform: scale(1.05); transform: scale(1.05) }
 
 button:hover:active { -webkit-transform: scale(.99); transform: scale(.99) }
 
-button:hover svg { fill: #6159FF }
+button:hover svg { fill: #68E790 }
 
 button.withBorder {
-    border: 1px solid #6159FF;
+    border: 1px solid #68E790;
     padding: 5px 10px 5px 5px;
     border-radius: 3px;
 }
@@ -747,6 +754,8 @@ button svg {
     height: 50px;
     margin-top: 30px;
     max-width: 400px;
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
 }
 
 .toggler__player_ID {
@@ -784,15 +793,13 @@ button svg {
     display: none;
 }
 
+.toggler__streamID, .toggler__streamIDy::before {
+    font-size: 1.2em;
+}
+
 /* states */
 
 .toggler__wrapper-playerFocused .toggler__broadcaster { display: none }
-
-.toggler__wrapper-playerFocused .toggler__player {
-    margin-bottom: 20px;
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-}
 
 .toggler__wrapper-playerFocused [class*='toggler__player-button'] {
     display: -webkit-box;
@@ -843,7 +850,7 @@ button svg {
             transform: scale(1.8) rotate(80deg);
 }
 
-.Placeholder-logo svg path { fill: #6159FF }
+.Placeholder-logo svg path { fill: #68E790 }
 
 .Placeholder-tagline {
     display: -webkit-box;
@@ -876,7 +883,12 @@ button svg {
     text-transform: uppercase;
     text-align: center;
     font-size: .48em;
-    display: none;
+}
+
+.Placeholder-text-sub a {
+    display: inline-block;
+    margin: 10px 0;
+    pointer-events: all;
 }
 
 .controls-container, .control-container { width: 100% }
@@ -994,8 +1006,8 @@ video { min-height: 100vh }
         -ms-flex-pack: center;
             justify-content: center;
     background: rgba(97, 89, 255, 1);
-    -webkit-box-shadow: 0px 0px 100px 100px rgba(97, 89, 255, 1);
-            box-shadow: 0px 0px 100px 100px rgba(97, 89, 255, 1);
+    -webkit-box-shadow: 0px 0px 100px 100px  rgba(97, 89, 255, 1);
+            box-shadow: 0px 0px 100px 100px  rgba(97, 89, 255, 1);
 }
 
 .modal-header {
